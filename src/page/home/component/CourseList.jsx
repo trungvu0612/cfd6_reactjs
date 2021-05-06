@@ -1,10 +1,14 @@
-export default function CourseList(){
+export default function CourseList( {status, teacher_avt, course_img, title, description, name_teacher, submit } ) {
     return(
         <div className="col-md-4 course">
                 <div className="wrap">
                   <a className="cover" href="#">
                     <img src="img/img1.png" alt="" />
-                    <span className="badge b1">Đã kết thúc</span>
+                    {
+                      status === 'da-ket-thuc' ? <span className="badge b1">Đã kết thúc</span> :
+                      status === 'dang-dien-ra' ? <span className="badge b2">Đang diễn ra</span> :
+                      <span className="badge b3">Sắp diễn ra</span>
+                    }
                     <div className="hover">
                       <div className="top">
                         <div className="user">
@@ -21,20 +25,20 @@ export default function CourseList(){
                   </a>
                   <div className="info">
                     <a className="name" href="#">
-                      Front-end căn bản
+                      {title}
                     </a>
                     <p className="des">
-                      One of the best corporate fashion brands in Sydney
+                      {description}
                     </p>
                   </div>
                   <div className="bottom">
                     <div className="teacher">
                       <div className="avatar">
-                        <img src="img/avt.png" alt="" />
+                        <img src={teacher_avt} alt="" />
                       </div>
-                      <div className="name">Trần Nghĩa</div>
+                      <div className="name">{name_teacher}</div>
                     </div>
-                    <div className="register-btn">Đăng Ký</div>
+                    <div className="register-btn">{submit}</div>
                   </div>
                 </div>
               </div>
