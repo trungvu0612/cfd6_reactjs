@@ -1,6 +1,5 @@
 export default function Register(){
     return (
-
       <main className="register-course" id="main">
         <section>
           <div className="container">

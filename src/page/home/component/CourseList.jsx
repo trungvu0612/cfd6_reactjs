@@ -1,46 +1,104 @@
-export default function CourseList( {status, teacher_avt, course_img, title, description, name_teacher, submit } ) {
+import CourseList from "../../../component/CourseItem";
+
+export default function CourseItem() {
     return(
-        <div className="col-md-4 course">
-                <div className="wrap">
-                  <a className="cover" href="#">
-                    <img src="img/img1.png" alt="" />
-                    {
-                      status === 'da-ket-thuc' ? <span className="badge b1">Đã kết thúc</span> :
-                      status === 'dang-dien-ra' ? <span className="badge b2">Đang diễn ra</span> :
-                      <span className="badge b3">Sắp diễn ra</span>
-                    }
-                    <div className="hover">
-                      <div className="top">
-                        <div className="user">
-                          <img src="img/icon-user-white.svg" alt="" />
-                          12</div>
-                        <div className="heart">
-                          <img src="img/icon-heart.svg" alt="" /> 100
-                        </div>
-                      </div>
-                      <div className="share">
-                        <img src="img/icon-viewmore.svg" alt="" />
-                      </div>
-                    </div>
-                  </a>
-                  <div className="info">
-                    <a className="name" href="#">
-                      {title}
-                    </a>
-                    <p className="des">
-                      {description}
-                    </p>
-                  </div>
-                  <div className="bottom">
-                    <div className="teacher">
-                      <div className="avatar">
-                        <img src={teacher_avt} alt="" />
-                      </div>
-                      <div className="name">{name_teacher}</div>
-                    </div>
-                    <div className="register-btn">{submit}</div>
-                  </div>
-                </div>
+        <>
+        <section className="section-courseoffline">
+          <div className="container">
+            <p className="top-des">
+              The readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it
+              has
+              a more-or-less normal
+            </p>
+            <div className="textbox">
+              <h2 className="main-title">Khóa học Offline</h2>
+            </div>
+            <div className="list row">
+              <CourseList
+                status='da-ket-thuc'
+                teacher_avt='img/avt.png'
+                title='React JS'
+                description='One of the best corporate fashion brands in Sydney'
+                name_teacher='Vương Đặng'
+                submit='Đăng ký'
+              />
+              <CourseList 
+                status='da-ket-thuc'
+                teacher_avt='img/avt.png'
+                title='Front-end căn bản'
+                description='One of the best corporate fashion brands in Sydney'
+                name_teacher='Trần Nghĩa'
+                submit='Đăng ký'
+              />
+              <CourseList
+                status='dang-dien-ra'
+                teacher_avt='img/avt.png'
+                title='Scss, Grunt JS và Boostrap 4'
+                description='One of the best corporate fashion brands in Sydney'
+                name_teacher='Trần Nghĩa'
+                submit='Đăng ký'
+              />
+              <CourseList
+                status='dang-dien-ra'
+                teacher_avt='img/avt.png'
+                title='Scss, Grunt JS và Boostrap 4'
+                description='One of the best corporate fashion brands in Sydney'
+                name_teacher='Trần Nghĩa'
+                submit='Đăng ký'
+              />
+              <CourseList
+                status='dang-dien-ra'
+                teacher_avt='img/avt.png'
+                title='Scss, Grunt JS và Boostrap 4'
+                description='One of the best corporate fashion brands in Sydney'
+                name_teacher='Trần Nghĩa'
+                submit='Đăng ký'
+              />
+              <CourseList
+                status='dang-dien-rấ'
+                teacher_avt='img/avt.png'
+                title='Scss, Grunt JS và Boostrap 4'
+                description='One of the best corporate fashion brands in Sydney'
+                name_teacher='Trần Nghĩa'
+                submit='Đăng ký'
+              />
               </div>
+          </div>
+        </section>
+        <section className="section-courseonline section-blue">
+          <div className="container">
+            <div className="textbox">
+              <h2 className="main-title">Khóa học Online</h2>
+            </div>
+            <div className="list row">
+              <CourseList
+                status=''
+                teacher_avt='img/avt.png'
+                title='Front-end căn bản'
+                description='One of the best corporate fashion brands in Sydney'
+                name_teacher='Trần Nghĩa'
+                submit='Đăng ký'
+              />
+              <CourseList
+                status=''
+                teacher_avt='img/avt.png'
+                title='Front-end nâng cao'
+                description='One of the best corporate fashion brands in Sydney'
+                name_teacher='Trần Nghĩa'
+                submit='Đăng ký'
+              />
+              <CourseList
+                status=''
+                teacher_avt='img/avt.png'
+                title='Laravel framework'
+                description='One of the best corporate fashion brands in Sydney'
+                name_teacher='Trần Nghĩa'
+                submit='Đăng ký'
+              />
+            </div>
+            <div className="text-deco">C</div>
+          </div>
+        </section>
+        </>
     )
 }
