@@ -1,21 +1,8 @@
-function App() {
-    return ( 
-    < div >
-        <
-        Item name = "ngguyen an"
-        age = "20" / >
+import Team from './page/team'
+import HomePage from "./page/home"
 
-        </div>
+export default function App() {
+    return ( 
+        <HomePage/>
     );
 }
-
-function Item({ name, age }) {
-    return ( 
-    <>
-        < h2 > { name } </h2> 
-        <h2 > { age } </h2> 
-     </>
-    );
-}
-
-export default App;
