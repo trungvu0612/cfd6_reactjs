@@ -1,4 +1,59 @@
+import { useState } from "react";
+
 export default function Register(){
+  
+  // let [name, setName] = useState('');
+  // let [phone, setPhone] = useState('');
+  // let [email, setEmail] = useState('');
+  // let [link, setLink] = useState('');
+  // let [comment, setComment] = useState('');
+
+  let [form, setForm] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    link: '',
+    comment: ''
+  })
+
+  function onSubmit() {
+    if(!form.name){
+      alert("Bắt buộc")
+      return
+    }
+    if(!form.phone){
+      alert("Bắt buộc")
+      return
+    }
+    if(!/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(form.phone)){
+      alert("Sai giá trị")
+      return
+    }
+    if(!form.email){
+      alert("Bắt buộc")
+      return
+    }
+    if(!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email)){
+      alert("Đây không phải link email.")
+      return
+    }
+    if(!form.link){
+      alert("Bắt buộc")
+      return
+    }
+    if(!/(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/.test(form.link)){
+      alert("Đây không phải link facebook")
+      return
+    }
+  }
+  function inputOnChange(e) {
+    let name = e.target.name
+    let value = e.target.value
+    setForm({
+      ...form,
+      [name]: value
+    })
+  }
     return (
       <main className="register-course" id="main">
         <section>
@@ -14,19 +69,19 @@ export default function Register(){
               <div className="form">
                 <label>
                   <p>Họ và tên<span>*</span></p>
-                  <input type="text" placeholder="Họ và tên bạn" />
+                  <input value={form.name} name="name" onChange={inputOnChange} type="text" placeholder="Họ và tên bạn" />
                 </label>
                 <label>
                   <p>Số điện thoại<span>*</span></p>
-                  <input type="text" placeholder="Số điện thoại" />
+                  <input value={form.phone} name="phone" onChange={inputOnChange} type="text" placeholder="Số điện thoại" />
                 </label>
                 <label>
                   <p>Email<span>*</span></p>
-                  <input type="text" placeholder="Email của bạn" />
+                  <input value={form.email} name="email" onChange={inputOnChange} type="text" placeholder="Email của bạn" />
                 </label>
                 <label>
                   <p>URL Facebook<span>*</span></p>
-                  <input type="text" placeholder="https://facebook.com" />
+                  <input value={form.link} name="link" onChange={inputOnChange} type="text" placeholder="https://facebook.com" />
                 </label>
                 <label className="disable">
                   <p>Sử dụng COIN</p>
@@ -50,9 +105,9 @@ export default function Register(){
                 </label>
                 <label>
                   <p>Ý kiến cá nhân</p>
-                  <input type="text" placeholder="Mong muốn cá nhân và lịch bạn có thể học." />
+                  <input value={form.comment} name="comment" onChange={inputOnChange} type="text" placeholder="Mong muốn cá nhân và lịch bạn có thể học." />
                 </label>
-                <div className="btn main rect">đăng ký</div>
+                <div onClick={onSubmit} className="btn main rect">đăng ký</div>
               </div>
             </div>
           </div>
