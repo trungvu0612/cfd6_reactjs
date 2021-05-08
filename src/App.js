@@ -12,6 +12,11 @@ import Course from './page/course';
 import Contact from './page/contact';
 import Profile from './page/profile';
 import {Nav} from './component/'
+import Faq from './page/faq';
+import Email from './page/email';
+import Pay from './page/pay';
+import CourseDetail from './page/coursedetail';
+import Coin from './page/profile/component/Coin';
 
 function App() {
   return (
@@ -20,12 +25,19 @@ function App() {
         <Header />
         <Nav />
         <Switch>
-          <Route exact path="/" component={HomePage}/>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/register" component={Register}/>
           <Route path="/team" component={Team}/>
           <Route path="/course" component={Course}/>
           <Route path="/project" component={Project}/>
           <Route path="/contact" component={Contact}/>
-          <Route path="/profile" component={Profile}/>
+          <Route path="/profile" component={Profile} />
+          <Route path="/register" component={Register} />
+          <Route path="/faq" component={Faq} />
+          <Route path="/email" component={Email} />
+          <Route path="/pay" component={Pay} />
+          <Route path="/coin" component={Coin}/>
+          <Route path="/course-details" component={CourseDetail}/>
           <Route component={Page404}/>
         </Switch>
         <Footer/>
