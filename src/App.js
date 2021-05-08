@@ -11,19 +11,21 @@ import Team from './page/team';
 import Course from './page/course';
 import Contact from './page/contact';
 import Profile from './page/profile';
+import {Nav} from './component/'
 
 function App() {
   return (
       <BrowserRouter>
        <div className="App">
-        <Header/>
+        <Header />
+        <Nav />
         <Switch>
           <Route exact path="/" component={HomePage}/>
-          <Route path="/Team" component={Team}/>
-          <Route path="/Course" component={Course}/>
-          <Route path="/Project" component={Project}/>
-          <Route path="/Contact" component={Contact}/>
-          <Route path="/Profile" component={Profile}/>
+          <Route path="/team" component={Team}/>
+          <Route path="/course" component={Course}/>
+          <Route path="/project" component={Project}/>
+          <Route path="/contact" component={Contact}/>
+          <Route path="/profile" component={Profile}/>
           <Route component={Page404}/>
         </Switch>
         <Footer/>

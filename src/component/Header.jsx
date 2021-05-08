@@ -5,7 +5,6 @@ export default function Header(){
     document.body.classList.toggle('menu-is-show');
   }
 return (
-     <>
       <header id="header">
         <div className="wrap">
           <div className="menu-hambeger" onClick={clickMenu}>
@@ -16,10 +15,10 @@ return (
             </div>
             <span className="text">menu</span>
           </div>
-          <a href="#" className="logo">
+          <Link to="/" className="logo">
             <img src="/img/logo.svg" alt="" />
             <h1>CFD</h1>
-          </a>
+          </Link>
           <div className="right">
             <div className="have-login">
               <div className="account">
@@ -33,9 +32,9 @@ return (
               <div className="hamberger">
               </div>
               <div className="sub">
-                <a href="#">Khóa học của tôi</a>
-                <a href="#">Thông tin tài khoản</a>
-                <a href="#">Đăng xuất</a>
+                <Link to="#">Khóa học của tôi</Link>
+                <Link to="/profile">Thông tin tài khoản</Link>
+                <Link to="#">Đăng xuất</Link>
               </div>
             </div>
             {/* <div class="not-login bg-none">
@@ -45,29 +44,5 @@ return (
           </div>
         </div>
       </header>
-          <nav className="nav">
-        <ul>
-          <li className="li_login">
-            <Link href="#">Đăng nhập</Link>
-            <Link href="#">Đăng ký</Link>
-          </li>
-          <li className="active">
-            <Link to="#">Trang chủ</Link>
-          </li>
-          <li>
-            <Link to="#">CFD Team</Link>
-          </li>
-          <li>
-            <Link to="#">Khóa Học</Link>
-          </li>
-          <li>
-            <Link to="#">Dự Án</Link>
-          </li>
-          <li>
-            <Link to="#">Liên hệ</Link>
-        </li>
-      </ul>
-    </nav>
-     </>
     );
   }
