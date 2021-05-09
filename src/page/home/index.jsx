@@ -1,17 +1,17 @@
-import Action from "./component/Action"
-import Banner from "./component/Banner"
-import CourseItem from "./component/CourseList"
-import Different from "./component/Different"
-import Gallery from "./component/Gallery"
-import Testimonial from "./component/Testimonial"
+import Action from "./component/Action";
+import Banner from "./component/Banner";
+import CourseItem from "./component/Courseitem";
+import Different from "./component/Different";
+import Gallery from "./component/Gallery";
+import Testimonial from "./component/Testimonial";
 
-export default function HomePage(){
-    return (
-      <main className="homepage" id="main">
-        <Banner/>
-        <CourseItem/>
-        <Different/>
-        {/* <section class="section-3">
+export default function HomePage() {
+  return (
+    <main className="homepage" id="main">
+      <Banner />
+      <CourseItem />
+      <Different />
+      {/* <section class="section-3">
             <div class="container">
                 <div class="video">
                     <iframe id="video-intro"
@@ -27,9 +27,9 @@ export default function HomePage(){
                 </div>
             </div>
         </section> */}
-        <Testimonial/>        
-        <Gallery/>
-        <Action/>
-      </main>
-    );
-  }
+      <Testimonial />
+      <Gallery />
+      <Action />
+    </main>
+  );
+}
