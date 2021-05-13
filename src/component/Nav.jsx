@@ -1,39 +1,55 @@
-import ReactDOM from 'react-dom'
-import { NavLink, useRouteMatch } from 'react-router-dom'
+import ReactDOM from "react-dom";
+import { NavLink, useRouteMatch } from "react-router-dom";
+import useDelaylinks from "../../src/hook/useDelayLink";
 
 export const Nav = () => {
-    
-    function overlayClick() {
-        document.body.classList.remove('menu-is-show')
-    }
+  let delayLink = useDelaylinks();
 
-    return ReactDOM.createPortal(
-        <>
-        <nav className="nav">
-             <ul>
-            <li className="li_login">
-                 <NavLink to="#">Đăng nhập</NavLink>
-                <NavLink to="#">Đăng ký</NavLink>
-            </li>
-            <li className="active">
-                <NavLink exact to="/">Trang chủ</NavLink>
-            </li>
-            <li>
-                <NavLink to="/team">CFD Team</NavLink>
-            </li>
-            <li>
-                <NavLink to="/course">Khóa Học</NavLink>
-            </li>
-            <li>
-                <NavLink to="/project">Dự Án</NavLink>
-            </li>
-            <li>
-                <NavLink to="contact">Liên hệ</NavLink>
-            </li>
+  function overlayClick() {
+    document.body.classList.remove("menu-is-show");
+  }
+
+  return ReactDOM.createPortal(
+    <>
+      <nav className="nav">
+        <ul>
+          <li className="li_login">
+            <NavLink onClick={delayLink} to="#">
+              Đăng nhập
+            </NavLink>
+            <NavLink onClick={delayLink} to="#">
+              Đăng ký
+            </NavLink>
+          </li>
+          <li className="active">
+            <NavLink onClick={delayLink} to="/">
+              Trang chủ
+            </NavLink>
+          </li>
+          <li>
+            <NavLink onClick={delayLink} exact to="/team">
+              CFD Team
+            </NavLink>
+          </li>
+          <li>
+            <NavLink onClick={delayLink} to="/course">
+              Khóa Học
+            </NavLink>
+          </li>
+          <li>
+            <NavLink onClick={delayLink} to="/project">
+              Dự Án
+            </NavLink>
+          </li>
+          <li>
+            <NavLink onClick={delayLink} to="contact">
+              Liên hệ
+            </NavLink>
+          </li>
         </ul>
-            </nav>
-            <div class="overlay_nav" onClick={overlayClick}></div>
-        </>,
-        document.body
-    )
-}
+      </nav>
+      <div class="overlay_nav" onClick={overlayClick}></div>
+    </>,
+    document.body
+  );
+};

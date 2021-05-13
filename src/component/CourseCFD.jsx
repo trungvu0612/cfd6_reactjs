@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function CourseCFD({ img, name, des, img_avt, teacher }) {
   return (
@@ -20,7 +21,9 @@ export default function CourseCFD({ img, name, des, img_avt, teacher }) {
             </div>
             <div className="name">{teacher}</div>
           </div>
-          <div className="register-btn">Đăng Ký</div>
+          <Link to="/register">
+            <div className="register-btn">Đăng Ký</div>
+          </Link>
         </div>
       </div>
     </div>

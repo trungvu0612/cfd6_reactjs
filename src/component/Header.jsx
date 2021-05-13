@@ -1,8 +1,9 @@
+import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 
 export default function Header() {
   function clickMenu() {
-    document.body.classList.toggle("menu-is-show");
+    document.body.classList.add("menu-is-show");
   }
   return (
     <header id="header">

@@ -27,15 +27,15 @@ export default function Register() {
     let errorObj = {};
     form.name.trim().replace(/ +/g, "");
     if (!form.name.trim()) {
-      errorObj.name = "Bắt buộc";
+      errorObj.name = "Thông tin này là bắt buộc.";
     }
     if (!form.phone.trim()) {
-      errorObj.phone = "Bắt buộc";
+      errorObj.phone = "Thông tin này là bắt buộc.";
     } else if (!/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(form.phone.trim())) {
       errorObj.phone = "Sai giá trị";
     }
     if (!form.email.trim()) {
-      errorObj.email = "Bắt buộc";
+      errorObj.email = "Thông tin này là bắt buộc.";
     } else if (
       !/^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/.test(
         form.email
@@ -44,7 +44,7 @@ export default function Register() {
       errorObj.email = "Đây không phải link email.";
     }
     if (!form.link.trim()) {
-      errorObj.link = "Bắt buộc";
+      errorObj.link = "Thông tin này là bắt buộc.";
     } else if (
       !/(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/.test(
         form.link.trim()
