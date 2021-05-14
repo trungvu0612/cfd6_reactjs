@@ -3,7 +3,11 @@ import React, { useState } from "react";
 let phonePattern = /(84|0[3|5|7|8|9])+([0-9]{8})\b/i,
   emailPattern = /^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/i,
   websitePattern =
-    /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i;
+    /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i,
+  facePattern =
+    /(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/i,
+  skypePattern =
+    /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/i;
 
 export default function useValidateForm(initialForm, validate) {
   let [form, setForm] = useState(initialForm);
@@ -38,6 +42,8 @@ export default function useValidateForm(initialForm, validate) {
         if (pattern === "phone") pattern = phonePattern;
         if (pattern === "email") pattern = emailPattern;
         if (pattern === "website") pattern = websitePattern;
+        if (pattern === "link") pattern = facePattern;
+        if (pattern === "skype") pattern = skypePattern;
 
         if (!pattern?.test(form[i])) {
           errorObj[i] = m?.pattern || "Không đúng định dạng";

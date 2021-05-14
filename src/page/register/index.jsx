@@ -1,4 +1,5 @@
 import { useState } from "react";
+import useValidateForm from "../../hook/useValidateForm";
 
 export default function Register() {
   // let [name, setName] = useState('');
@@ -7,64 +8,120 @@ export default function Register() {
   // let [link, setLink] = useState('');
   // let [comment, setComment] = useState('');
 
-  let [form, setForm] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    link: "",
-    comment: "",
-  });
+  // let [form, setForm] = useState({
+  //   name: "",
+  //   phone: "",
+  //   email: "",
+  //   link: "",
+  //   comment: "",
+  // });
 
-  let [error, setError] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    link: "",
-    comment: "",
-  });
-
+  // let [error, setError] = useState({
+  //   name: "",
+  //   phone: "",
+  //   email: "",
+  //   link: "",
+  //   comment: "",
+  // });
+  let { form, error, inputOnChange, check } = useValidateForm(
+    {
+      // lấy ra những input cần được set rule.
+      name: "",
+      phone: "",
+      email: "",
+      link: "",
+      comment: "",
+    },
+    {
+      // đặt rule cho từng input cần được set.
+      rule: {
+        name: {
+          required: true,
+        },
+        phone: {
+          required: true,
+          pattern: "phone",
+        },
+        email: {
+          required: true,
+          pattern: "email",
+        },
+        link: {
+          required: true,
+          pattern: "link",
+        },
+        comment: {
+          required: true,
+        },
+      },
+      message: {
+        name: {
+          required: "Họ và tên không được để trống",
+        },
+        phone: {
+          required: "Số điện thoại không được để trống",
+          pattern: "Số điện thoại không xác định được",
+        },
+        email: {
+          required: "Email không được để trống",
+          pattern: "Đây không phải link email",
+        },
+        link: {
+          required: "Link Facebook không được để trống",
+          pattern: "Đây không phải là link Facebook",
+        },
+        comment: {
+          required: true,
+        },
+      },
+    }
+  );
   function onSubmit() {
-    let errorObj = {};
-    form.name.trim().replace(/ +/g, "");
-    if (!form.name.trim()) {
-      errorObj.name = "Thông tin này là bắt buộc.";
-    }
-    if (!form.phone.trim()) {
-      errorObj.phone = "Thông tin này là bắt buộc.";
-    } else if (!/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(form.phone.trim())) {
-      errorObj.phone = "Sai giá trị";
-    }
-    if (!form.email.trim()) {
-      errorObj.email = "Thông tin này là bắt buộc.";
-    } else if (
-      !/^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/.test(
-        form.email
-      )
-    ) {
-      errorObj.email = "Đây không phải link email.";
-    }
-    if (!form.link.trim()) {
-      errorObj.link = "Thông tin này là bắt buộc.";
-    } else if (
-      !/(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/.test(
-        form.link.trim()
-      )
-    ) {
-      errorObj.link = "Đây không phải link facebook";
-    }
+    let errorObj = check();
+
+    //   form.name.trim().replace(/ +/g, "");
+    //   if (!form.name.trim()) {
+    //     errorObj.name = "Thông tin này là bắt buộc.";
+    //   }
+    //   if (!form.phone.trim()) {
+    //     errorObj.phone = "Thông tin này là bắt buộc.";
+    //   } else if (!/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(form.phone.trim())) {
+    //     errorObj.phone = "Sai giá trị";
+    //   }
+    //   if (!form.email.trim()) {
+    //     errorObj.email = "Thông tin này là bắt buộc.";
+    //   } else if (
+    //     !/^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/.test(
+    //       form.email
+    //     )
+    //   ) {
+    //     errorObj.email = "Đây không phải link email.";
+    //   }
+    //   if (!form.link.trim()) {
+    //     errorObj.link = "Thông tin này là bắt buộc.";
+    //   } else if (
+    //     !/(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/.test(
+    //       form.link.trim()
+    //     )
+    //   ) {
+    //     errorObj.link = "Đây không phải link facebook";
+    //   }
+    //   if (Object.keys(errorObj).length === 0) {
+    //     console.log(form);
+    //   } else {
+    //     setError(errorObj);
+    //   }
+    // }
+    // function inputOnChange(e) {
+    //   let name = e.target.name;
+    //   let value = e.target.value;
+    //   setForm({
+    //     ...form,
+    //     [name]: value,
+    //   });
     if (Object.keys(errorObj).length === 0) {
       console.log(form);
-    } else {
-      setError(errorObj);
     }
-  }
-  function inputOnChange(e) {
-    let name = e.target.name;
-    let value = e.target.value;
-    setForm({
-      ...form,
-      [name]: value,
-    });
   }
   return (
     <main className="register-course" id="main">
