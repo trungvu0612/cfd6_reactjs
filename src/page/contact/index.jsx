@@ -1,68 +1,83 @@
 import { useState } from "react";
+import useValidateForm from "../../hook/useValidateForm";
 
 export default function Contact() {
-  let [form, setForm] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    website: "",
-    title: "",
-  });
+  // let [form, setForm] = useState({
+  //   name: "",
+  //   phone: "",
+  //   email: "",
+  //   website: "",
+  //   title: "",
+  // });
 
-  let [error, setError] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    website: "",
-    title: "",
-  });
+  // let [error, setError] = useState({
+  //   name: "",
+  //   phone: "",
+  //   email: "",
+  //   website: "",
+  //   title: "",
+  // });
 
+  let { form, error, inputOnChange, check } = useValidateForm(
+    {
+      // lấy ra những input cần được set rule.
+      name: "",
+      phone: "",
+      email: "",
+      website: "",
+      title: "",
+    },
+    {
+      // đặt rule cho từng input cần được set.
+      rule: {
+        name: {
+          required: true,
+        },
+        phone: {
+          required: true,
+          pattern: "phone",
+        },
+        email: {
+          required: true,
+          pattern: "email",
+        },
+        website: {
+          required: true,
+          pattern: "website",
+        },
+        title: {
+          required: true,
+        },
+      },
+      message: {
+        name: {
+          required: "Họ và tên không được để trống",
+        },
+        phone: {
+          required: "Số điện thoại không được để trống",
+          pattern: "Số điện thoại không xác định được",
+        },
+        email: {
+          required: "Email không được để trống",
+          pattern: "Đây không phải link email",
+        },
+        website: {
+          required: "Link website không được để trống",
+          pattern: "Đây không phải là link website",
+        },
+        title: {
+          required: true,
+        },
+      },
+    }
+  );
+  // submit nếu không có giá trị thì console.log form
   function onSubmit() {
-    let errorObj = {};
-    form.name.trim().replace(/ +/g, "");
-    if (!form.name.trim()) {
-      errorObj.name = "Bắt buộc";
-    }
-    if (!form.phone.trim()) {
-      errorObj.phone = "Bắt buộc";
-    } else if (!/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(form.phone.trim())) {
-      errorObj.phone = "Sai giá trị";
-    }
-    if (!form.email.trim()) {
-      errorObj.email = "Bắt buộc";
-    } else if (
-      !/^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/.test(
-        form.email
-      )
-    ) {
-      errorObj.email = "Đây không phải link email.";
-    }
-    if (!form.website.trim()) {
-      errorObj.website = "Bắt buộc";
-    } else if (
-      !/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/.test(
-        form.website
-      )
-    ) {
-      errorObj.website = "Đây không phải link website.";
-    }
-    if (!form.title.trim()) {
-      errorObj.title = "Bắt buộc";
-    }
+    let errorObj = check();
+
     if (Object.keys(errorObj).length === 0) {
       console.log(form);
-    } else {
-      setError(errorObj);
     }
-  }
-
-  function inputOnChange(e) {
-    let name = e.target.name;
-    let value = e.target.value;
-    setForm({
-      ...form,
-      [name]: value,
-    });
   }
 
   return (
