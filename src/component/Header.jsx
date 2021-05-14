@@ -1,10 +1,16 @@
+import { useContext } from "react";
 import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
+
+import { Context } from "../App";
 
 export default function Header() {
   function clickMenu() {
     document.body.classList.add("menu-is-show");
   }
+
+  let value = useContext(Context);
+
   return (
     <header id="header">
       <div className="wrap">
@@ -24,9 +30,9 @@ export default function Header() {
           <div className="have-login">
             <div className="account">
               <a href="#" className="info">
-                <div className="name">Trần Lê Trọng Nghĩa</div>
+                <div className="name">{value.login.name}</div>
                 <div className="avatar">
-                  <img src="/img/avt.png" alt="" />
+                  <img src={value.login.avatar} alt="" />
                 </div>
               </a>
             </div>
