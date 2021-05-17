@@ -7,6 +7,7 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 import { Context } from "../../App";
+import useAuth from "../../hook/useAuth";
 import Coin from "./component/Coin";
 import Info from "./component/Info";
 import MyCourse from "./component/MyCourse";
@@ -16,7 +17,7 @@ import Project from "./component/Project";
 export default function Profile() {
   let { path } = useRouteMatch();
 
-  let { login } = useContext(Context);
+  let { login } = useAuth();
 
   if (!login) return <Redirect path="/" />;
 

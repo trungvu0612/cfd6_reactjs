@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import reactDom from "react-dom";
 import { Link } from "react-router-dom";
+import { Context } from "../App";
 import useValidateForm from "../hook/useValidateForm";
 
 export function Login() {
@@ -33,6 +34,9 @@ export function Login() {
       },
     }
   );
+
+  let { handleLogin } = useContext(Context);
+
   function closePopup() {
     document.querySelector(".res").style.display = "none";
   }
@@ -41,7 +45,13 @@ export function Login() {
     let errorObj = check();
 
     if (Object.keys(errorObj).length === 0) {
-      console.log(form);
+      handleLogin(form.username, form.password);
+      let res = handleLogin(form.username, form.password);
+      if (res) {
+        alert(res);
+      } else {
+        closePopup();
+      }
     }
   }
 

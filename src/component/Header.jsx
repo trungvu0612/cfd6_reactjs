@@ -3,13 +3,14 @@ import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 
 import { Context } from "../App";
+import useAuth from "../hook/useAuth";
 
 export default function Header() {
   function clickMenu() {
     document.body.classList.add("menu-is-show");
   }
 
-  let { login } = useContext(Context);
+  let { login, handleLogout } = useAuth();
 
   function openPopup(e) {
     e.preventDefault();
@@ -44,14 +45,22 @@ export default function Header() {
               </div>
               <div className="hamberger"></div>
               <div className="sub">
-                <Link to="#">Khóa học của tôi</Link>
+                <Link to="/profile/my-course">Khóa học của tôi</Link>
                 <Link to="/profile">Thông tin tài khoản</Link>
-                <Link to="#">Đăng xuất</Link>
+                <Link
+                  to="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleLogout();
+                  }}
+                >
+                  Đăng xuất
+                </Link>
               </div>
             </div>
           ) : (
             <div class="not-login bg-none">
-              <a href="#" class="btn-register" onclick={openPopup}>
+              <a href="#" class="btn-register" onClick={openPopup}>
                 Đăng nhập
               </a>
               <a href="login.html" class="btn main btn-open-login">

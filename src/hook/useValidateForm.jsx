@@ -55,7 +55,12 @@ export default function useValidateForm(initialForm, validate) {
       }
       if (r.min) {
         if (form[i].length < r.min) {
-          errorObj[i] = m?.min || "Không được ít hơn ${r.min} ký tự";
+          errorObj[i] = m?.min || `Không được ít hơn ${r.min} ký tự`;
+        }
+      }
+      if (r.max) {
+        if (form[i].length > r.max) {
+          errorObj[i] = m?.max || `Không được nhiều hơn ${r.min} ký tự`;
         }
       }
     }
