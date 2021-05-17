@@ -1,5 +1,11 @@
 import { useContext } from "react";
-import { NavLink, Route, Switch, useRouteMatch } from "react-router-dom";
+import {
+  NavLink,
+  Redirect,
+  Route,
+  Switch,
+  useRouteMatch,
+} from "react-router-dom";
 import { Context } from "../../App";
 import Coin from "./component/Coin";
 import Info from "./component/Info";
@@ -10,7 +16,9 @@ import Project from "./component/Project";
 export default function Profile() {
   let { path } = useRouteMatch();
 
-  let value = useContext(Context);
+  let { login } = useContext(Context);
+
+  if (!login) return <Redirect path="/" />;
 
   return (
     <main className="profile" id="main">
@@ -18,10 +26,10 @@ export default function Profile() {
         <div className="top-info">
           <div className="avatar">
             {/* <span class="text">H</span> */}
-            <img src="/img/avatar-lg.png" alt="" />
+            <img src={login.avatar} alt="" />
             <div className="camera" />
           </div>
-          <div className="name">{value.login.name}</div>
+          <div className="name">{login.name}</div>
           <p className="des">Thành viên của team CFD1-OFFLINE</p>
         </div>
         <div className="container">

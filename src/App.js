@@ -25,11 +25,11 @@ export let Context = React.createContext({});
 function App() {
   let login = {
     name: "Vũ Thành Trung",
-    avatar: "img/avt.png",
+    avatar: "/img/avt.png",
   };
 
   return (
-    <Contact.Provider value={{ login }}>
+    <Context.Provider value={{}}>
       <BrowserRouter>
         <div className="App">
           <Header />
@@ -53,7 +53,7 @@ function App() {
           <Footer />
         </div>
       </BrowserRouter>
-    </Contact.Provider>
+    </Context.Provider>
   );
 }
 

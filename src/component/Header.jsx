@@ -9,7 +9,7 @@ export default function Header() {
     document.body.classList.add("menu-is-show");
   }
 
-  let value = useContext(Context);
+  let { login } = useContext(Context);
 
   return (
     <header id="header">
@@ -27,26 +27,33 @@ export default function Header() {
           <h1>CFD</h1>
         </Link>
         <div className="right">
-          <div className="have-login">
-            <div className="account">
-              <a href="#" className="info">
-                <div className="name">{value.login.name}</div>
-                <div className="avatar">
-                  <img src={value.login.avatar} alt="" />
-                </div>
+          {login ? (
+            <div className="have-login">
+              <div className="account">
+                <a href="#" className="info">
+                  <div className="name">{login.name}</div>
+                  <div className="avatar">
+                    <img src={login.avatar} alt="" />
+                  </div>
+                </a>
+              </div>
+              <div className="hamberger"></div>
+              <div className="sub">
+                <Link to="#">Khóa học của tôi</Link>
+                <Link to="/profile">Thông tin tài khoản</Link>
+                <Link to="#">Đăng xuất</Link>
+              </div>
+            </div>
+          ) : (
+            <div class="not-login bg-none">
+              <a href="#" class="btn-register">
+                Đăng nhập
+              </a>
+              <a href="login.html" class="btn main btn-open-login">
+                Đăng ký
               </a>
             </div>
-            <div className="hamberger"></div>
-            <div className="sub">
-              <Link to="#">Khóa học của tôi</Link>
-              <Link to="/profile">Thông tin tài khoản</Link>
-              <Link to="#">Đăng xuất</Link>
-            </div>
-          </div>
-          {/* <div class="not-login bg-none">
-                    <a href="#" class="btn-register">Đăng nhập</a>
-                    <a href="login.html" class="btn main btn-open-login">Đăng ký</a>
-                </div> */}
+          )}
         </div>
       </div>
     </header>
