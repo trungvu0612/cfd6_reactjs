@@ -12,7 +12,7 @@ import Team from "./page/team";
 import Course from "./page/course";
 import Contact from "./page/contact";
 import Profile from "./page/profile";
-import { Nav } from "./component/";
+import { Login, Nav } from "./component/";
 import Faq from "./page/faq";
 import Email from "./page/email";
 import Pay from "./page/pay";
@@ -34,6 +34,7 @@ function App() {
         <div className="App">
           <Header />
           <Nav />
+          <Login />
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route path="/register" component={Register} />

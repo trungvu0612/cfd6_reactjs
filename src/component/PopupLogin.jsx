@@ -1,12 +1,10 @@
 import React, { useContext, useState } from "react";
 import reactDom from "react-dom";
 import { Link } from "react-router-dom";
-import useAuth from "../hook/useAuth";
-import useFormValidate from "../hook/useFormValidate";
-import authApi from "../services/authApi";
+import useValidateForm from "../hook/useValidateForm";
 
-export default function Login() {
-  let { form, error, inputChange, check } = useFormValidate(
+export function Login() {
+  let { form, error, inputOnChange, check } = useValidateForm(
     {
       username: "",
       password: "",
@@ -19,7 +17,8 @@ export default function Login() {
         },
         password: {
           required: true,
-          // pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i,
+          min: 6,
+          max: 32,
         },
       },
       message: {
@@ -38,16 +37,11 @@ export default function Login() {
     document.querySelector(".res").style.display = "none";
   }
 
-  let { handleLogin, loginErr } = useAuth();
+  function onSubmit() {
+    let errorObj = check();
 
-  async function onSubmit() {
-    let inputError = check();
-
-    if (Object.keys(inputError).length === 0) {
-      let res = await handleLogin(form);
-      if (res?.success) {
-        closePopup();
-      }
+    if (Object.keys(errorObj).length === 0) {
+      console.log(form);
     }
   }
 
@@ -57,13 +51,12 @@ export default function Login() {
         {/* login-form */}
         <div className="ct_login" style={{ display: "block" }}>
           <h2 className="title">Đăng nhập</h2>
-          {loginErr && <p className="error-text">{loginErr}</p>}
           <input
             type="text"
             value={form.username}
             placeholder="Email / Số điện thoại"
             name="username"
-            onChange={inputChange}
+            onChange={inputOnChange}
           />
           {error.username && (
             <span className="error-text">{error.username}</span>
@@ -74,7 +67,7 @@ export default function Login() {
             type="password"
             placeholder="Mật khẩu"
             name="password"
-            onChange={inputChange}
+            onChange={inputOnChange}
           />
           {error.password && (
             <span className="error-text">{error.password}</span>
@@ -119,6 +112,6 @@ export default function Login() {
       </div>
     </div>,
 
-    document.getElementById("root2")
+    document.body
   );
 }

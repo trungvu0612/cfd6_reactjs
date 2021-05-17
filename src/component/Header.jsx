@@ -11,6 +11,11 @@ export default function Header() {
 
   let { login } = useContext(Context);
 
+  function openPopup(e) {
+    e.preventDefault();
+    document.querySelector(".res").style.display = "flex";
+  }
+
   return (
     <header id="header">
       <div className="wrap">
@@ -46,7 +51,7 @@ export default function Header() {
             </div>
           ) : (
             <div class="not-login bg-none">
-              <a href="#" class="btn-register">
+              <a href="#" class="btn-register" onclick={openPopup}>
                 Đăng nhập
               </a>
               <a href="login.html" class="btn main btn-open-login">

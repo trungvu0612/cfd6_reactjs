@@ -28,6 +28,9 @@ export default function useValidateForm(initialForm, validate) {
   function check() {
     let errorObj = {};
     let { rule, message } = validate;
+    if (!message) {
+      message = {};
+    }
 
     for (let i in rule) {
       let r = rule[i];
@@ -35,6 +38,7 @@ export default function useValidateForm(initialForm, validate) {
 
       if (r.required && !form[i]?.trim()) {
         errorObj[i] = m?.required || "Không được để trống ô này.";
+        continue;
       }
 
       if (r.pattern && form[i]) {
@@ -47,6 +51,11 @@ export default function useValidateForm(initialForm, validate) {
 
         if (!pattern?.test(form[i])) {
           errorObj[i] = m?.pattern || "Không đúng định dạng";
+        }
+      }
+      if (r.min) {
+        if (form[i].length < r.min) {
+          errorObj[i] = m?.min || "Không được ít hơn ${r.min} ký tự";
         }
       }
     }
