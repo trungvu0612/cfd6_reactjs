@@ -6,6 +6,7 @@ import useAuth from "../hook/useAuth";
 import useValidateForm from "../hook/useValidateForm";
 
 export function Login() {
+  let [loginError, setloginError] = useState(null);
   let { form, error, inputOnChange, check } = useValidateForm(
     {
       username: "",
@@ -36,21 +37,22 @@ export function Login() {
     }
   );
 
-  let { handleLogin, loginError } = useAuth();
+  let { handleLogin } = useAuth();
 
   function closePopup() {
     document.querySelector(".res").style.display = "none";
   }
 
-  function onSubmit() {
+  async function onSubmit() {
     let errorObj = check();
 
     if (Object.keys(errorObj).length === 0) {
-      handleLogin(form.username, form.password).then((res) => {
-        if (res) {
-          closePopup();
-        }
-      });
+      let res = await handleLogin(form.username, form.password);
+      if (res.success) {
+        closePopup();
+      } else if (res.error) {
+        setloginError(res.error);
+      }
     }
   }
 

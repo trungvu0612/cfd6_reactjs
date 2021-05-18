@@ -54,12 +54,13 @@ function App() {
           ...state,
           login: res.data,
         });
-        return true;
+        return {
+          success: true,
+        };
       } else if (res.error) {
-        setState({
-          ...state,
-          loginError: res.error,
-        });
+        return {
+          error: res.error,
+        };
       }
     } catch (err) {}
 
