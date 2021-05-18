@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import reactDom from "react-dom";
 import { Link } from "react-router-dom";
 import { Context } from "../App";
+import useAuth from "../hook/useAuth";
 import useValidateForm from "../hook/useValidateForm";
 
 export function Login() {
@@ -35,7 +36,7 @@ export function Login() {
     }
   );
 
-  let { handleLogin } = useContext(Context);
+  let { handleLogin, loginError } = useAuth();
 
   function closePopup() {
     document.querySelector(".res").style.display = "none";
@@ -45,13 +46,11 @@ export function Login() {
     let errorObj = check();
 
     if (Object.keys(errorObj).length === 0) {
-      handleLogin(form.username, form.password);
-      let res = handleLogin(form.username, form.password);
-      if (res) {
-        alert(res);
-      } else {
-        closePopup();
-      }
+      handleLogin(form.username, form.password).then((res) => {
+        if (res) {
+          closePopup();
+        }
+      });
     }
   }
 
@@ -61,6 +60,7 @@ export function Login() {
         {/* login-form */}
         <div className="ct_login" style={{ display: "block" }}>
           <h2 className="title">Đăng nhập</h2>
+          {loginError && <p className="error-text">{loginError}</p>}
           <input
             type="text"
             value={form.username}
