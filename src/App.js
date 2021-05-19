@@ -20,13 +20,15 @@ import CourseDetail from "./page/coursedetail";
 import Coin from "./page/profile/component/Coin";
 import React, { useEffect, useState } from "react";
 import PrivateRouter from "./component/PrivateRouter";
+import Auth from "./Servises/auth";
+import { Provider } from "react-redux";
+import store from "./redux";
 
 export let Context = React.createContext({});
 
 function App() {
   let [state, setState] = useState({
     login: JSON.parse(localStorage.getItem("login")),
-    loginError: null,
   });
 
   useEffect(() => {
@@ -35,20 +37,7 @@ function App() {
 
   async function handleLogin(username, password) {
     try {
-      let res = await fetch(
-        "https://cfd-reactjs.herokuapp.com/elearning/v4/login",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            username,
-            password,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      res = await res.json();
+      let res = await Auth.login({ username, password });
       if (res.data) {
         setState({
           ...state,
@@ -91,32 +80,34 @@ function App() {
   }
 
   return (
-    <Context.Provider value={{ ...state, handleLogin, handleLogout }}>
-      <BrowserRouter>
-        <div className="App">
-          <Header />
-          <Nav />
-          <Login />
-          <Switch>
-            <Route exact path="/" component={HomePage} />{" "}
-            <Route path="/register" component={Register} />{" "}
-            <PrivateRouter path="/team" component={Team} />{" "}
-            <PrivateRouter path="/course" component={Course} />{" "}
-            <PrivateRouter path="/project" component={Project} />{" "}
-            <PrivateRouter path="/contact" component={Contact} />{" "}
-            <PrivateRouter path="/profile" component={Profile} />{" "}
-            <Route path="/register" component={Register} />{" "}
-            <Route path="/faq" component={Faq} />{" "}
-            <Route path="/email" component={Email} />{" "}
-            <Route path="/pay" component={Pay} />{" "}
-            <Route path="/coin" component={Coin} />{" "}
-            <Route path="/course-details" component={CourseDetail} />{" "}
-            <Route component={Page404} />{" "}
-          </Switch>{" "}
-          <Footer />
-        </div>{" "}
-      </BrowserRouter>{" "}
-    </Context.Provider>
+    <Provider store={store}>
+      <Context.Provider value={{ ...state, handleLogin, handleLogout }}>
+        <BrowserRouter>
+          <div className="App">
+            <Header />
+            <Nav />
+            <Login />
+            <Switch>
+              <Route exact path="/" component={HomePage} />{" "}
+              <Route path="/register" component={Register} />{" "}
+              <PrivateRouter path="/team" component={Team} />{" "}
+              <PrivateRouter path="/course" component={Course} />{" "}
+              <PrivateRouter path="/project" component={Project} />{" "}
+              <PrivateRouter path="/contact" component={Contact} />{" "}
+              <PrivateRouter path="/profile" component={Profile} />{" "}
+              <Route path="/register" component={Register} />{" "}
+              <Route path="/faq" component={Faq} />{" "}
+              <Route path="/email" component={Email} />{" "}
+              <Route path="/pay" component={Pay} />{" "}
+              <Route path="/coin" component={Coin} />{" "}
+              <Route path="/course-details" component={CourseDetail} />{" "}
+              <Route component={Page404} />{" "}
+            </Switch>{" "}
+            <Footer />
+          </div>{" "}
+        </BrowserRouter>{" "}
+      </Context.Provider>
+    </Provider>
   );
 }
 

@@ -1,15 +1,30 @@
+import { useEffect, useState } from "react";
+import courseApi from "../../Servises/courseApi";
 import Action from "./component/Action";
 import Banner from "./component/Banner";
-import CourseItem from "./component/Courseitem";
+import CourseList from "./component/CourseList";
+
 import Different from "./component/Different";
 import Gallery from "./component/Gallery";
 import Testimonial from "./component/Testimonial";
 
 export default function HomePage() {
+  let [list, setList] = useState({
+    offline: [],
+    onlined: [],
+  });
+
+  useEffect(() => {
+    courseApi.list().then((res) => {
+      setList(res);
+      console.log(res);
+    });
+  }, []);
+
   return (
     <main className="homepage" id="main">
       <Banner />
-      <CourseItem />
+      <CourseList {...list} />
       <Different />
       {/* <section class="section-3">
             <div class="container">
