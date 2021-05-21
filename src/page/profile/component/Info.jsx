@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
 import useValidateForm from "../../../hook/useValidateForm";
+import Auth from "../../../Servises/auth";
 
 export default function Info() {
+  let { slug } = useParams();
+  let { data } = useSelector((store) => store.authReducer);
+
   let { form, error, inputOnChange, check } = useValidateForm(
     {
       // lấy ra những input cần được set rule.
-      name: "",
-      phone: "",
-      email: "",
-      link: "",
-      skype: "",
+      ...data,
     },
     {
       // đặt rule cho từng input cần được set.
@@ -58,11 +60,19 @@ export default function Info() {
     }
   );
 
-  function onSubmit() {
+  let dispatch = useDispatch();
+
+  async function onSubmit() {
     let errorObj = check();
 
     if (Object.keys(errorObj).length === 0) {
-      console.log(form);
+      let res = await Auth.update(form);
+      if (res?.data) {
+        dispatch({
+          type: "UPDATE",
+          payload: res.data,
+        });
+      }
     }
   }
 

@@ -1,7 +1,13 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import useValidateForm from "../../hook/useValidateForm";
+import courseApi from "../../Servises/courseApi";
+import Auth from "../../Servises/auth";
+import { useParams } from "react-router";
 
 export default function Register() {
+  let { loginError } = useSelector((store) => store.authReducer);
+  let { slug } = useParams();
   // let [name, setName] = useState('');
   // let [phone, setPhone] = useState('');
   // let [email, setEmail] = useState('');
@@ -23,13 +29,12 @@ export default function Register() {
   //   link: "",
   //   comment: "",
   // });
+  let { data } = useSelector((store) => store.authReducer);
   let { form, error, inputOnChange, check } = useValidateForm(
     {
       // lấy ra những input cần được set rule.
-      name: "",
-      phone: "",
-      email: "",
-      link: "",
+
+      ...data,
       comment: "",
     },
     {
@@ -40,7 +45,7 @@ export default function Register() {
         },
         phone: {
           required: true,
-          pattern: "phone",
+          // pattern: "phone",
         },
         email: {
           required: true,
@@ -76,7 +81,10 @@ export default function Register() {
       },
     }
   );
-  function onSubmit() {
+
+  let dispatch = useDispatch();
+
+  async function onSubmit() {
     let errorObj = check();
 
     //   form.name.trim().replace(/ +/g, "");
@@ -120,7 +128,9 @@ export default function Register() {
     //     [name]: value,
     //   });
     if (Object.keys(errorObj).length === 0) {
-      console.log(form);
+      let res = await Auth.register(form, slug);
+      if (res?.success) {
+      }
     }
   }
   return (

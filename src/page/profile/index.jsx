@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useSelector } from "react";
 import {
   NavLink,
   Redirect,
@@ -16,9 +16,7 @@ import Project from "./component/Project";
 
 export default function Profile() {
   let { path } = useRouteMatch();
-
-  let { login } = useAuth();
-
+  let { login } = useSelector((store) => store.authReducer);
   if (!login) return <Redirect path="/" />;
 
   return (

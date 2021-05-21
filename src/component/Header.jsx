@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import ReactDOM from "react-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { Context } from "../App";
@@ -10,11 +11,17 @@ export default function Header() {
     document.body.classList.add("menu-is-show");
   }
 
-  let { login, handleLogout } = useAuth();
+  let dispatch = useDispatch();
+  // let { login, handleLogout } = useAuth();
+  let { login } = useSelector((store) => store.authReducer);
 
   function openPopup(e) {
     e.preventDefault();
     document.querySelector(".res").style.display = "flex";
+  }
+  function logOut(e) {
+    e.preventDefault();
+    dispatch({ type: "LOGOUT" });
   }
 
   return (
@@ -47,25 +54,19 @@ export default function Header() {
               <div className="sub">
                 <Link to="/profile/my-course">Khóa học của tôi</Link>
                 <Link to="/profile">Thông tin tài khoản</Link>
-                <Link
-                  to="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleLogout();
-                  }}
-                >
+                <Link to="#" onClick={logOut}>
                   Đăng xuất
                 </Link>
               </div>
             </div>
           ) : (
             <div class="not-login bg-none">
-              <a href="#" class="btn-register" onClick={openPopup}>
+              <Link to="#" class="btn-register" onClick={openPopup}>
                 Đăng nhập
-              </a>
-              <a href="login.html" class="btn main btn-open-login">
+              </Link>
+              <Link to="/register" class="btn main btn-open-login">
                 Đăng ký
-              </a>
+              </Link>
             </div>
           )}
         </div>

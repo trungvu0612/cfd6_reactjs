@@ -1,12 +1,14 @@
 import React, { useContext, useState } from "react";
 import reactDom from "react-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Context } from "../App";
 import useAuth from "../hook/useAuth";
 import useValidateForm from "../hook/useValidateForm";
+import { loginAction, logoutAction } from "../redux/actions/authAction";
 
 export function Login() {
-  let [loginError, setloginError] = useState(null);
+  let { loginError } = useSelector((store) => store.authReducer);
   let { form, error, inputOnChange, check } = useValidateForm(
     {
       username: "",
@@ -37,7 +39,9 @@ export function Login() {
     }
   );
 
-  let { handleLogin } = useAuth();
+  let dispatch = useDispatch();
+
+  // let { handleLogin } = useAuth();
 
   function closePopup() {
     document.querySelector(".res").style.display = "none";
@@ -47,15 +51,30 @@ export function Login() {
     let errorObj = check();
 
     if (Object.keys(errorObj).length === 0) {
-      let res = await handleLogin(form.username, form.password);
-      if (res.success) {
-        closePopup();
-      } else if (res.error) {
-        setloginError(res.error);
-      }
+      // let res = await Auth.login({
+      //   username: form.username,
+      //   password: form.password,
+      // });
+
+      dispatch(
+        loginAction({
+          username: form.username,
+          password: form.password,
+        })
+      );
+      closePopup();
+
+      // if (res.data) {
+      //   // closePopup();
+      //   //
+      //   dispatch(loginAction(res.data));
+      //   closePopup();
+      // } else if (res.error) {
+      //   setloginError();
+      // }
     }
   }
-
+  console.log("loginError :>> ", loginError);
   return reactDom.createPortal(
     <div className="popup-form popup-login res" style={{ display: "none" }}>
       <div className="wrap">
